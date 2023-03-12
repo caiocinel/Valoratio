@@ -4,7 +4,7 @@
 
 </p>
 <p align="center">
-    <img alt="Project language" src="https://img.shields.io/badge/language-c++-red"></a>
+    <a href="https://github.com/codecorno/SenseVant-External-Cheat"><img alt="C++" src="https://img.shields.io/badge/github-C++-red?style=for-the-badge"></a>
     <br />
 </p>
 

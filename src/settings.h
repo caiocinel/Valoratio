@@ -1,6 +1,6 @@
 #pragma once
 #include "struct.h"
-#include "skCrypt.h"
+#include "thirdparty/skCrypt.h"
 inline uintptr_t g_pid;
 inline uintptr_t g_base;
 static inline char* memdup(const char* s, size_t n)

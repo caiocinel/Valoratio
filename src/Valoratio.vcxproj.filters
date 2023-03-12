@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{fd028a7c-22b6-4bd4-8e42-c8a3d7435b5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\kdmapper">
+      <UniqueIdentifier>{9498ef70-b41a-4348-bcd6-4edf820f8cc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\imgui">
+      <UniqueIdentifier>{c7a942bc-14cc-4240-8363-850a0d65eb74}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="thirdparty\kdmapper\service.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\kdmapper\portable_executable.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\kdmapper\kdmapper.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\kdmapper\intel_driver.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imstb_rectpack.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imgui_impl_win32.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imgui.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imgui_impl_dx9.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\skCrypt.h">
+      <Filter>thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\kdmapper\utils.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\kdmapper\nt.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\kdmapper\intel_driver_resource.hpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imstb_truetype.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imstb_textedit.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\imgui\imgui_internal.h">
+      <Filter>thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.h" />
+    <ClInclude Include="driver.h" />
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="offsets.h" />
+    <ClInclude Include="overlay.h" />
+    <ClInclude Include="sdk.h" />
+    <ClInclude Include="settings.h" />
+    <ClInclude Include="struct.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="wndhide.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\imgui\imgui_impl_dx9.cpp">
+      <Filter>thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\kdmapper\utils.cpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\kdmapper\service.cpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\kdmapper\kdmapper.cpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\kdmapper\intel_driver.cpp">
+      <Filter>thirdparty\kdmapper</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\imgui\imgui_widgets.cpp">
+      <Filter>thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\imgui\imgui_impl_win32.cpp">
+      <Filter>thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\imgui\imgui.cpp">
+      <Filter>thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdparty\imgui\imgui_draw.cpp">
+      <Filter>thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="memory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="thirdparty\libcurl.lib">
+      <Filter>thirdparty</Filter>
+    </Library>
+  </ItemGroup>
+</Project>

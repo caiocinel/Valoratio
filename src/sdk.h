@@ -4,9 +4,9 @@
 #include "offsets.h"
 #include "defs.h"
 #include <thread>
-#include "skCrypt.h"
+#include "thirdparty/skCrypt.h"
 #include "settings.h"
-#include "imgui/imgui.h"
+#include "thirdparty/imgui/imgui.h"
 #include <TlHelp32.h>
 inline int g_width;
 inline int g_height;

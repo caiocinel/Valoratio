@@ -3,9 +3,9 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dwmapi.h>
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_win32.h"
-#include "imgui/imgui_impl_dx9.h"
+#include "thirdparty/imgui/imgui.h"
+#include "thirdparty/imgui/imgui_impl_win32.h"
+#include "thirdparty/imgui/imgui_impl_dx9.h"
 #include "sdk.h"
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "Dwmapi.lib")

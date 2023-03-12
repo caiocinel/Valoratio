@@ -4,9 +4,8 @@
 #include "util.h"
 #include <Windows.h>
 #include "wndhide.h"
-#include "auth.hpp"
 #include <string>
-#include "KdMapper/kdmapper.hpp"
+#include "thirdparty/KdMapper/kdmapper.hpp"
 
 
 inline HANDLE iqvw64e_device_handle;

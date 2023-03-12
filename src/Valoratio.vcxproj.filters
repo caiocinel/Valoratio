@@ -57,8 +57,6 @@
     <ClInclude Include="thirdparty\imgui\imgui_internal.h">
       <Filter>thirdparty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="defs.h" />
-    <ClInclude Include="driver.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="offsets.h" />
@@ -66,8 +64,15 @@
     <ClInclude Include="sdk.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="struct.h" />
-    <ClInclude Include="util.h" />
-    <ClInclude Include="wndhide.h" />
+    <ClInclude Include="thirdparty\wndhide.h">
+      <Filter>thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\defs.h">
+      <Filter>thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\driver.h">
+      <Filter>thirdparty</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">

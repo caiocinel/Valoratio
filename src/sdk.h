@@ -2,7 +2,7 @@
 #include "struct.h"
 #include "memory.h"
 #include "offsets.h"
-#include "defs.h"
+#include "thirdparty/defs.h"
 #include <thread>
 #include "thirdparty/skCrypt.h"
 #include "settings.h"

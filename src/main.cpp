@@ -1,9 +1,8 @@
 #include "sdk.h"
 #include "overlay.h"
 #include "menu.h"
-#include "util.h"
 #include <Windows.h>
-#include "wndhide.h"
+#include "thirdparty/wndhide.h"
 #include <string>
 #include "thirdparty/KdMapper/kdmapper.hpp"
 

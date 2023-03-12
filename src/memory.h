@@ -4,7 +4,7 @@
 #include <string>
 #include <random>
 #include "settings.h"
-#include "driver.h"
+#include "thirdparty/driver.h"
 
 namespace fptr_data
 {

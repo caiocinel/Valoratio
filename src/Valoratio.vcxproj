@@ -25,8 +25,6 @@
     <ClCompile Include="thirdparty\kdmapper\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="defs.h" />
-    <ClInclude Include="driver.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="offsets.h" />
@@ -34,6 +32,8 @@
     <ClInclude Include="sdk.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="thirdparty\defs.h" />
+    <ClInclude Include="thirdparty\driver.h" />
     <ClInclude Include="thirdparty\imgui\imgui.h" />
     <ClInclude Include="thirdparty\imgui\imgui_impl_dx9.h" />
     <ClInclude Include="thirdparty\imgui\imgui_impl_win32.h" />
@@ -49,8 +49,7 @@
     <ClInclude Include="thirdparty\kdmapper\service.hpp" />
     <ClInclude Include="thirdparty\kdmapper\utils.hpp" />
     <ClInclude Include="thirdparty\skCrypt.h" />
-    <ClInclude Include="util.h" />
-    <ClInclude Include="wndhide.h" />
+    <ClInclude Include="thirdparty\wndhide.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib" />

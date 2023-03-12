@@ -8,6 +8,7 @@
 #include "thirdparty/imgui/imgui_impl_dx9.h"
 #include "sdk.h"
 #include "vars.h"
+#include "ui.h";
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "Dwmapi.lib")

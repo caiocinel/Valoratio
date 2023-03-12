@@ -318,7 +318,8 @@ int cheat()
 		ClientToScreen(Vars::gameWnd, &xy);
 		rc.left = xy.x;
 		rc.top = xy.y;
-
+		
+		UI::style();
 		ImGuiIO& io = ImGui::GetIO();
 		io.ImeWindowHandle = Vars::gameWnd;
 		io.DeltaTime = 1.0f / 60.0f;

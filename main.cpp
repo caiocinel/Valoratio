@@ -138,21 +138,13 @@ void render()
 
 	if (GetAsyncKeyState(VK_INSERT) & 1) { settings::show_menu = !settings::show_menu; }
 
-	if (settings::esp_enabled) { make_hack(); }
+	if (settings::esp_enabled)
+		make_hack();
+	
 	draw_menu();
 	if (settings::aimbot)
 	{
 		ImGui::GetOverlayDrawList()->AddCircle(ImVec2(ScreenCenterX, ScreenCenterY), settings::fov, IM_COL32_WHITE, 10000, 1);
-	}
-	if (GetAsyncKeyState(VK_F4) & 1)
-	{
-		uintptr_t playerstatelocal = driver.read<uintptr_t>(glocalpawn + PLAYER_STATE);
-		uintptr_t teamComponent = driver.read<uintptr_t>(playerstatelocal + TEAM_COMP);
-		int teamID = driver.read<int>(teamComponent + TEAM_ID);
-
-		teamID = !(bool)teamID;
-
-		driver.write<int>(teamComponent + TEAM_ID, teamID);
 	}
 	ImGui::EndFrame();
 	p_Device->SetRenderState(D3DRS_ZENABLE, false);

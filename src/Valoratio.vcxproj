@@ -23,10 +23,12 @@
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp" />
     <ClCompile Include="thirdparty\kdmapper\service.cpp" />
     <ClCompile Include="thirdparty\kdmapper\utils.cpp" />
+    <ClCompile Include="ui.cpp" />
+    <ClCompile Include="Vars.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memory.h" />
-    <ClInclude Include="menu.h" />
+    <ClInclude Include="const.h" />
     <ClInclude Include="offsets.h" />
     <ClInclude Include="overlay.h" />
     <ClInclude Include="sdk.h" />
@@ -50,6 +52,8 @@
     <ClInclude Include="thirdparty\kdmapper\utils.hpp" />
     <ClInclude Include="thirdparty\skCrypt.h" />
     <ClInclude Include="thirdparty\wndhide.h" />
+    <ClInclude Include="ui.h" />
+    <ClInclude Include="vars.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib" />

@@ -1,0 +1,2 @@
+
+struct Vars* vars;

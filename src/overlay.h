@@ -7,44 +7,34 @@
 #include "thirdparty/imgui/imgui_impl_win32.h"
 #include "thirdparty/imgui/imgui_impl_dx9.h"
 #include "sdk.h"
+#include "vars.h"
+
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "Dwmapi.lib")
 
-IDirect3D9Ex* p_Object = NULL;
-IDirect3DDevice9Ex* p_Device = NULL;
-D3DPRESENT_PARAMETERS p_Params = { NULL };
 
-HWND MyWnd = NULL;
-HWND GameWnd = NULL;
-MSG Message = { NULL };
-
-RECT GameRect = { NULL };
-D3DPRESENT_PARAMETERS d3dpp;
-
-DWORD ScreenCenterX;
-DWORD ScreenCenterY;
 
 static ULONG Width = GetSystemMetrics(SM_CXSCREEN);
 static ULONG Height = GetSystemMetrics(SM_CYSCREEN);
 auto init_wndparams(HWND hWnd) -> HRESULT
 {
-	if (FAILED(Direct3DCreate9Ex(D3D_SDK_VERSION, &p_Object)))
+	if (FAILED(Direct3DCreate9Ex(D3D_SDK_VERSION, &Vars::pObject)))
 		exit(3);
 
-	ZeroMemory(&p_Params, sizeof(p_Params));
-	p_Params.Windowed = TRUE;
-	p_Params.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	p_Params.hDeviceWindow = hWnd;
-	p_Params.MultiSampleQuality = D3DMULTISAMPLE_NONE;
-	p_Params.BackBufferFormat = D3DFMT_A8R8G8B8;
-	p_Params.BackBufferWidth = Width;
-	p_Params.BackBufferHeight = Height;
-	p_Params.EnableAutoDepthStencil = TRUE;
-	p_Params.AutoDepthStencilFormat = D3DFMT_D16;
-	p_Params.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	ZeroMemory(&Vars::pParams, sizeof(Vars::pParams));
+	Vars::pParams.Windowed = TRUE;
+	Vars::pParams.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	Vars::pParams.hDeviceWindow = hWnd;
+	Vars::pParams.MultiSampleQuality = D3DMULTISAMPLE_NONE;
+	Vars::pParams.BackBufferFormat = D3DFMT_A8R8G8B8;
+	Vars::pParams.BackBufferWidth = Width;
+	Vars::pParams.BackBufferHeight = Height;
+	Vars::pParams.EnableAutoDepthStencil = TRUE;
+	Vars::pParams.AutoDepthStencilFormat = D3DFMT_D16;
+	Vars::pParams.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
-	if (FAILED(p_Object->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &p_Params, 0, &p_Device))) {
-		p_Object->Release();
+	if (FAILED(Vars::pObject->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &Vars::pParams, 0, &Vars::pDevice))) {
+		Vars::pObject->Release();
 		exit(4);
 	}
 	ImGui::CreateContext();
@@ -55,81 +45,10 @@ auto init_wndparams(HWND hWnd) -> HRESULT
 	ImGui::StyleColorsLight();
 
 	ImGui_ImplWin32_Init(hWnd);
-	ImGui_ImplDX9_Init(p_Device);
+	ImGui_ImplDX9_Init(Vars::pDevice);
 	return S_OK;
 }
 
-
-
-void Style()
-{
-	ImVec4* colors = ImGui::GetStyle().Colors;
-	colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-	colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
-	colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-	colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 1.f);
-	colors[ImGuiCol_PopupBg] = ImVec4(0.19f, 0.19f, 0.19f, 1.f);
-	colors[ImGuiCol_Border] = ImVec4(0.19f, 0.19f, 0.19f, 1.f);
-	colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 1.f);
-	colors[ImGuiCol_FrameBg] = ImVec4(0.05f, 0.05f, 0.05f, 1.f);
-	colors[ImGuiCol_FrameBgHovered] = ImVec4(0.19f, 0.19f, 0.19f, 1.f);
-	colors[ImGuiCol_FrameBgActive] = ImVec4(0.20f, 0.22f, 0.23f, 1.00f);
-	colors[ImGuiCol_TitleBg] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_TitleBgActive] = ImVec4(0.06f, 0.06f, 0.06f, 1.00f);
-	colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_MenuBarBg] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
-	colors[ImGuiCol_ScrollbarBg] = ImVec4(0.05f, 0.05f, 0.05f, 1.f);
-	colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.34f, 0.34f, 0.34f, 1.f);
-	colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.40f, 0.40f, 0.40f, 1.f);
-	colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.56f, 0.56f, 0.56f, 1.f);
-	colors[ImGuiCol_CheckMark] = ImVec4(0.33f, 0.67f, 0.86f, 1.00f);
-	colors[ImGuiCol_SliderGrab] = ImVec4(0.34f, 0.34f, 0.34f, 1.f);
-	colors[ImGuiCol_SliderGrabActive] = ImVec4(0.56f, 0.56f, 0.56f, 1.f);
-	colors[ImGuiCol_Button] = ImVec4(0.05f, 0.05f, 0.05f, 1.f);
-	colors[ImGuiCol_ButtonHovered] = ImVec4(0.19f, 0.19f, 0.19f, 1.f);
-	colors[ImGuiCol_ButtonActive] = ImVec4(0.20f, 0.22f, 0.23f, 1.00f);
-	colors[ImGuiCol_Header] = ImVec4(0.00f, 0.00f, 0.00f, 1.f);
-	colors[ImGuiCol_HeaderHovered] = ImVec4(0.00f, 0.00f, 0.00f, 1.f);
-	colors[ImGuiCol_HeaderActive] = ImVec4(0.20f, 0.22f, 0.23f, 1.f);
-	colors[ImGuiCol_Separator] = ImVec4(0.28f, 0.28f, 0.28f, 1.f);
-	colors[ImGuiCol_SeparatorHovered] = ImVec4(0.44f, 0.44f, 1.f, 1.f);
-	colors[ImGuiCol_SeparatorActive] = ImVec4(0.40f, 0.44f, 0.47f, 1.00f);
-	colors[ImGuiCol_ResizeGrip] = ImVec4(0.28f, 0.28f, 0.28f, 1.f);
-	colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.44f, 0.44f, 0.44f, 1.f);
-	colors[ImGuiCol_ResizeGripActive] = ImVec4(0.40f, 0.44f, 0.47f, 1.00f);
-	colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_PlotHistogram] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_TextSelectedBg] = ImVec4(0.20f, 0.22f, 0.23f, 1.00f);
-	colors[ImGuiCol_DragDropTarget] = ImVec4(0.33f, 0.67f, 0.86f, 1.00f);
-	colors[ImGuiCol_NavHighlight] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
-	colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 0.00f, 0.00f, 1.f);
-	colors[ImGuiCol_NavWindowingDimBg] = ImVec4(1.00f, 0.00f, 0.00f, 1.f);
-	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(1.00f, 0.00f, 0.00f, 1.f);
-
-	ImGuiStyle& style = ImGui::GetStyle();
-	style.WindowPadding = ImVec2(8.00f, 8.00f);
-	style.FramePadding = ImVec2(5.00f, 2.00f);
-	style.ItemSpacing = ImVec2(6.00f, 6.00f);
-	style.ItemInnerSpacing = ImVec2(6.00f, 6.00f);
-	style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
-	style.TouchExtraPadding = ImVec2(0.00f, 0.00f);
-	style.IndentSpacing = 25;
-	style.ScrollbarSize = 15;
-	style.GrabMinSize = 10;
-	style.Alpha = 1.0f;
-	style.WindowBorderSize = 1;
-	style.ChildBorderSize = 1;
-	style.PopupBorderSize = 1;
-	style.FrameBorderSize = 1;
-	style.WindowRounding = 7;
-	style.ChildRounding = 4;
-	style.FrameRounding = 3;
-	style.PopupRounding = 4;
-	style.ScrollbarRounding = 9;
-	style.GrabRounding = 3;
-}
 auto get_process_wnd(uint32_t pid) -> HWND
 {
 	std::pair<HWND, uint32_t> params = { 0, pid };
@@ -155,31 +74,31 @@ auto get_process_wnd(uint32_t pid) -> HWND
 
 auto cleanup_d3d() -> void
 {
-	if (p_Device != NULL) {
-		p_Device->EndScene();
-		p_Device->Release();
+	if (Vars::pDevice != NULL) {
+		Vars::pDevice->EndScene();
+		Vars::pDevice->Release();
 	}
-	if (p_Object != NULL) {
-		p_Object->Release();
+	if (Vars::pObject != NULL) {
+		Vars::pObject->Release();
 	}
 }
 
 auto set_window_target() -> void
 {
 	while (true) {
-		GameWnd = get_process_wnd(g_pid);
-		if (GameWnd) {
-			ZeroMemory(&GameRect, sizeof(GameRect));
-			GetWindowRect(GameWnd, &GameRect);
-			DWORD dwStyle = GetWindowLong(GameWnd, GWL_STYLE);
+		Vars::gameWnd = get_process_wnd(Vars::gPid);
+		if (Vars::gameWnd) {
+			ZeroMemory(&Vars::gameRect, sizeof(Vars::gameRect));
+			GetWindowRect(Vars::gameWnd, &Vars::gameRect);
+			DWORD dwStyle = GetWindowLong(Vars::gameWnd, GWL_STYLE);
 			if (dwStyle & WS_BORDER)
 			{
-				GameRect.top += 32;
+				Vars::gameRect.top += 32;
 				Height -= 39;
 			}
-			ScreenCenterX = Width / 2;
-			ScreenCenterY = Height / 2;
-			MoveWindow(MyWnd, GameRect.left, GameRect.top, Width, Height, true);
+			Vars::screenCenterX = Width / 2;
+			Vars::screenCenterY = Height / 2;
+			MoveWindow(Vars::myWnd, Vars::gameRect.left, Vars::gameRect.top, Width, Height, true);
 		}
 	}
 }
@@ -209,15 +128,15 @@ auto setup_window() -> void
 
 	RegisterClassExA(&wcex);
 
-	MyWnd = CreateWindowExA(NULL, ("Overlay"), ("Overlay"), WS_POPUP, Rect.left, Rect.top, Rect.right, Rect.bottom, NULL, NULL, wcex.hInstance, NULL);
-	SetWindowLong(MyWnd, GWL_EXSTYLE, WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
-	SetLayeredWindowAttributes(MyWnd, RGB(0, 0, 0), 255, LWA_ALPHA);
+	Vars::myWnd = CreateWindowExA(NULL, ("Overlay"), ("Overlay"), WS_POPUP, Rect.left, Rect.top, Rect.right, Rect.bottom, NULL, NULL, wcex.hInstance, NULL);
+	SetWindowLong(Vars::myWnd, GWL_EXSTYLE, WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+	SetLayeredWindowAttributes(Vars::myWnd, RGB(0, 0, 0), 255, LWA_ALPHA);
 
 	MARGINS margin = { -1 };
-	DwmExtendFrameIntoClientArea(MyWnd, &margin);
+	DwmExtendFrameIntoClientArea(Vars::myWnd, &margin);
 
-	ShowWindow(MyWnd, SW_SHOW);
-	UpdateWindow(MyWnd);
+	ShowWindow(Vars::myWnd, SW_SHOW);
+	UpdateWindow(Vars::myWnd);
 }
 
 void DrawFilledRect(int x, int y, int w, int h, RGBA* color)

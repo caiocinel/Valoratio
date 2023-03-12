@@ -1,10 +1,10 @@
 #include "sdk.h"
 #include "overlay.h"
-#include "menu.h"
 #include <Windows.h>
 #include "thirdparty/wndhide.h"
 #include <string>
 #include "thirdparty/KdMapper/kdmapper.hpp"
+#include "ui.h"
 
 
 inline HANDLE iqvw64e_device_handle;
@@ -127,46 +127,6 @@ void make_hack()
 	}
 }
 
-
-void render()
-{
-	ImGui_ImplDX9_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-
-	if (GetAsyncKeyState(VK_INSERT) & 1) { settings::show_menu = !settings::show_menu; }
-
-	if (settings::esp_enabled)
-		make_hack();
-	
-	draw_menu();
-	if (settings::aimbot)
-	{
-		ImGui::GetOverlayDrawList()->AddCircle(ImVec2(ScreenCenterX, ScreenCenterY), settings::fov, IM_COL32_WHITE, 10000, 1);
-	}
-	ImGui::EndFrame();
-	p_Device->SetRenderState(D3DRS_ZENABLE, false);
-	p_Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-	p_Device->SetRenderState(D3DRS_SCISSORTESTENABLE, false);
-	p_Device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
-
-	if (p_Device->BeginScene() >= 0)
-	{
-		ImGui::Render();
-		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-		p_Device->EndScene();
-	}
-
-	HRESULT result = p_Device->Present(NULL, NULL, NULL, NULL);
-
-	if (result == D3DERR_DEVICELOST && p_Device->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
-	{
-		ImGui_ImplDX9_InvalidateDeviceObjects();
-		p_Device->Reset(&d3dpp);
-		ImGui_ImplDX9_CreateDeviceObjects();
-	}
-}
-
 void aimbot()
 {
 	try
@@ -245,7 +205,7 @@ void cache()
 {
 	while (true)
 	{
-		uintptr_t UWorld = driver.read2<uintptr_t>(g_base + 0x50);
+		uintptr_t UWorld = driver.read2<uintptr_t>(Vars::gBase + 0x50);
 		uintptr_t GameInstance = driver.read2<uintptr_t>(UWorld + GAME_INSTANCE);
 		uintptr_t PersistentLevel = driver.read2<uintptr_t>(UWorld + PERSISTENT_LEVEL);
 		uintptr_t LocalPlayers_Array = driver.read2<uintptr_t>(GameInstance + LOCALPLAYERS_ARRAY);
@@ -318,47 +278,49 @@ int cheat()
 	{
 		printf(skCrypt("[>] Wa1t1ng for Valorant...\n"));
 		Sleep(1);
-		g_pid = SDK::GetVALORANTPID();
-		printf(skCrypt("[>] PID: %d\n"), g_pid);
-		Entryhwnd = get_process_wnd(g_pid);
+		Vars::gPid = SDK::GetVALORANTPID();
+		printf(skCrypt("[>] PID: %d\n"), Vars::gPid);
+		Entryhwnd = get_process_wnd(Vars::gPid);
 		Sleep(1);
 	}
-	driver.attach(g_pid);
+	driver.attach(Vars::gPid);
 	setup_window();
-	init_wndparams(MyWnd);
-	g_base = driver.get_guarded_base();
+	init_wndparams(Vars::myWnd);
+	Vars::gBase = driver.get_guarded_base();
 	driver.VirtualAddress = driver.get_guarded_base();
-	if (!g_base) { printf(skCrypt("[>] Couldn't get base address!\n")); return 0; }
-	printf(skCrypt("[>] Guarded Base: %p\n"), g_base);
+	if (!Vars::gBase) { printf(skCrypt("[>] Couldn't get base address!\n")); return 0; }
+	printf(skCrypt("[>] Guarded Base: %p\n"), Vars::gBase);
 	CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)cache, nullptr, NULL, nullptr);
 	static RECT old_rc;
-	ZeroMemory(&Message, sizeof(MSG));
-	while (Message.message != WM_QUIT)
+	ZeroMemory(&Vars::message, sizeof(MSG));
+	while (Vars::message.message != WM_QUIT)
 	{
-		if (PeekMessage(&Message, MyWnd, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&Message);
-			DispatchMessage(&Message);
+		if (PeekMessage(&Vars::message, Vars::myWnd, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&Vars::message);
+			DispatchMessage(&Vars::message);
 		}
 
 		HWND hwnd_active = GetForegroundWindow();
+		if (GetAsyncKeyState(VK_INSERT) & 1)
+			settings::show_menu = !settings::show_menu;
 
 
-		if (hwnd_active == GameWnd) {
+		if (hwnd_active == Vars::gameWnd) {
 			HWND hwndtest = GetWindow(hwnd_active, GW_HWNDPREV);
-			SetWindowPos(MyWnd, hwndtest, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+			SetWindowPos(Vars::myWnd, hwndtest, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 		}
 		RECT rc;
 		POINT xy;
 
 		ZeroMemory(&rc, sizeof(RECT));
 		ZeroMemory(&xy, sizeof(POINT));
-		GetClientRect(GameWnd, &rc);
-		ClientToScreen(GameWnd, &xy);
+		GetClientRect(Vars::gameWnd, &rc);
+		ClientToScreen(Vars::gameWnd, &xy);
 		rc.left = xy.x;
 		rc.top = xy.y;
 
 		ImGuiIO& io = ImGui::GetIO();
-		io.ImeWindowHandle = GameWnd;
+		io.ImeWindowHandle = Vars::gameWnd;
 		io.DeltaTime = 1.0f / 60.0f;
 
 		POINT p;
@@ -381,12 +343,12 @@ int cheat()
 			Width = rc.right;
 			Height = rc.bottom;
 
-			p_Params.BackBufferWidth = Width;
-			p_Params.BackBufferHeight = Height;
-			SetWindowPos(MyWnd, (HWND)0, xy.x, xy.y, Width, Height, SWP_NOREDRAW);
-			p_Device->Reset(&p_Params);
+			Vars::pParams.BackBufferWidth = Width;
+			Vars::pParams.BackBufferHeight = Height;
+			SetWindowPos(Vars::myWnd, (HWND)0, xy.x, xy.y, Width, Height, SWP_NOREDRAW);
+			Vars::pDevice->Reset(&Vars::pParams);
 		}
-		render();
+		UI::render();
 		std::thread(aimbot).detach();
 		Sleep(10);
 	}
@@ -395,8 +357,8 @@ int cheat()
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 	cleanup_d3d();
-	DestroyWindow(MyWnd);
-	return Message.wParam;
+	DestroyWindow(Vars::myWnd);
+	return Vars::message.wParam;
 }
 
 
@@ -407,12 +369,12 @@ void check1()
 	{
 		if (settings::streamproof_enabled)
 		{
-			wndhide::hide_window(GetCurrentProcessId(), (MyWnd), true);
+			wndhide::hide_window(GetCurrentProcessId(), (Vars::myWnd), true);
 			wndhide::hide_window(GetCurrentProcessId(), GetConsoleWindow(), true);
 		}
 		else
 		{
-			wndhide::hide_window(GetCurrentProcessId(), (MyWnd), false);
+			wndhide::hide_window(GetCurrentProcessId(), (Vars::myWnd), false);
 			wndhide::hide_window(GetCurrentProcessId(), GetConsoleWindow(), false);
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(1900));

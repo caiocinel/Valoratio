@@ -8,6 +8,7 @@
 #include "settings.h"
 #include "thirdparty/imgui/imgui.h"
 #include <TlHelp32.h>
+
 inline int g_width;
 inline int g_height;
 inline HWND menu;

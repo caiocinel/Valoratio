@@ -58,7 +58,7 @@
       <Filter>thirdparty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="memory.h" />
-    <ClInclude Include="menu.h" />
+    <ClInclude Include="const.h" />
     <ClInclude Include="offsets.h" />
     <ClInclude Include="overlay.h" />
     <ClInclude Include="sdk.h" />
@@ -73,6 +73,8 @@
     <ClInclude Include="thirdparty\driver.h">
       <Filter>thirdparty</Filter>
     </ClInclude>
+    <ClInclude Include="ui.h" />
+    <ClInclude Include="vars.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">
@@ -107,6 +109,8 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
+    <ClCompile Include="ui.cpp" />
+    <ClCompile Include="Vars.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib">

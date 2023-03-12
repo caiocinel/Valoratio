@@ -1,4 +1,4 @@
-
+#include <Windows.h>
 #include "memory.h"
 kernel::driver::driver() : pid(0u)
 {}

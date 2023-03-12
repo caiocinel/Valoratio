@@ -1,5 +1,5 @@
 <h1 align="center">
-  SenseVant - Valorant External Cheat
+  Valoratio - Valorant External Cheat
 </h1>
 
 </p>
@@ -38,7 +38,7 @@ Trata-se de um simples cheat para VALORANT escrito em C++ utilizando o driver KD
   - [ ] Box Type
   - [ ] Snapline ESP
   - [ ] Snapline Type
-  - [ ] Heathbar ESP
+  - [ ] Healthbar ESP
   - [ ] Distance ESP
   - [x] StreamProof
 

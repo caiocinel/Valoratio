@@ -1,13 +1,6 @@
 #include "ESP.h"
 
 void ESP::render() {
-	
-}
-
-/*
-
-#include "overlay.h"
-void ESP::render() {
 
 	std::vector<EnemyPtr> actor = enemy_array;
 	printf("Teste 1");
@@ -63,11 +56,11 @@ void ESP::render() {
 			{
 				if (settings::box_type == 0)
 				{
-					DrawCorneredBox(vBaseBoneOut2.x - BoxWidth / 2 + 1, vHeadBoneOut2.y, BoxWidth, BoxHeight, ImGui::ColorConvertFloat4ToU32(ImVec4(settings::box_color[0], settings::box_color[1], settings::box_color[2], settings::box_color[3])), 2);
+					CustomImGui::DrawCorneredBox(vBaseBoneOut2.x - BoxWidth / 2 + 1, vHeadBoneOut2.y, BoxWidth, BoxHeight, ImGui::ColorConvertFloat4ToU32(ImVec4(settings::box_color[0], settings::box_color[1], settings::box_color[2], settings::box_color[3])), 2);
 				}
 				if (settings::box_type == 1)
 				{
-					DrawNormalBox(vBaseBoneOut2.x - (BoxWidth / 2), vHeadBoneOut2.y, BoxWidth, BoxHeight, 1, ImGui::ColorConvertFloat4ToU32(ImVec4(settings::box_color[0], settings::box_color[1], settings::box_color[2], settings::box_color[3])));
+					CustomImGui::DrawNormalBox(vBaseBoneOut2.x - (BoxWidth / 2), vHeadBoneOut2.y, BoxWidth, BoxHeight, 1, ImGui::ColorConvertFloat4ToU32(ImVec4(settings::box_color[0], settings::box_color[1], settings::box_color[2], settings::box_color[3])));
 				}
 				if (settings::box_type == 2)
 				{
@@ -101,15 +94,15 @@ void ESP::render() {
 			{
 				if (settings::line_type == 0)
 				{
-					DrawLine(ImVec2(g_width / 2, g_height), ImVec2(vBaseBoneOut.x, vBaseBoneOut.y), ImGui::ColorConvertFloat4ToU32(ImVec4(settings::snapline_color[0], settings::snapline_color[1], settings::snapline_color[2], settings::snapline_color[3])), 1);
+					CustomImGui::DrawLine(ImVec2(g_width / 2, g_height), ImVec2(vBaseBoneOut.x, vBaseBoneOut.y), ImGui::ColorConvertFloat4ToU32(ImVec4(settings::snapline_color[0], settings::snapline_color[1], settings::snapline_color[2], settings::snapline_color[3])), 1);
 				}
 				if (settings::line_type == 1)
 				{
-					DrawLine(ImVec2(g_width / 2, g_height - 1080), ImVec2(vHeadBoneOut.x, vHeadBoneOut.y), ImGui::ColorConvertFloat4ToU32(ImVec4(settings::snapline_color[0], settings::snapline_color[1], settings::snapline_color[2], settings::snapline_color[3])), 1);
+					CustomImGui::DrawLine(ImVec2(g_width / 2, g_height - 1080), ImVec2(vHeadBoneOut.x, vHeadBoneOut.y), ImGui::ColorConvertFloat4ToU32(ImVec4(settings::snapline_color[0], settings::snapline_color[1], settings::snapline_color[2], settings::snapline_color[3])), 1);
 				}
 				if (settings::line_type == 2)
 				{
-					DrawLine(ImVec2(g_width / 2, g_height / 2), ImVec2(vBaseBoneOut.x, vBaseBoneOut.y), ImGui::ColorConvertFloat4ToU32(ImVec4(settings::snapline_color[0], settings::snapline_color[1], settings::snapline_color[2], settings::snapline_color[3])), 1);
+					CustomImGui::DrawLine(ImVec2(g_width / 2, g_height / 2), ImVec2(vBaseBoneOut.x, vBaseBoneOut.y), ImGui::ColorConvertFloat4ToU32(ImVec4(settings::snapline_color[0], settings::snapline_color[1], settings::snapline_color[2], settings::snapline_color[3])), 1);
 				}
 			}
 			if (settings::distance)
@@ -117,14 +110,12 @@ void ESP::render() {
 				char dist[64];
 				sprintf_s(dist, skCrypt("[%.fm]"), distance);
 				RGBA col = { settings::distance_color[0], settings::distance_color[1], settings::distance_color[2], settings::distance_color[3] };
-				DrawString(14, vHeadBoneOut.x - 5, vHeadBoneOut.y - 13, &col, true, false, dist);
+				CustomImGui::DrawString(14, vHeadBoneOut.x - 5, vHeadBoneOut.y - 13, &col, true, false, dist);
 			}
 			if (settings::healthbar)
 			{
-				DrawLeftProgressBar(vBaseBoneOut2.x - 8, vHeadBoneOut2.y, BoxWidth, BoxHeight, 5, Health);
+				CustomImGui::DrawLeftProgressBar(vBaseBoneOut2.x - 8, vHeadBoneOut2.y, BoxWidth, BoxHeight, 5, Health);
 			}
 		}
 	}
 }
-
-*/

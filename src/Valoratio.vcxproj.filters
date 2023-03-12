@@ -60,7 +60,7 @@
     <ClInclude Include="memory.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="offsets.h" />
-    <ClInclude Include="overlay.h" />
+    <ClInclude Include="Overlay.h" />
     <ClInclude Include="sdk.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="struct.h" />
@@ -78,6 +78,8 @@
     <ClInclude Include="ESP.h" />
     <ClInclude Include="CustomImGui.h" />
     <ClInclude Include="StrConvert.h" />
+    <ClInclude Include="Aimbot.h" />
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">
@@ -117,6 +119,8 @@
     <ClCompile Include="ESP.cpp" />
     <ClCompile Include="CustomImGui.cpp" />
     <ClCompile Include="StrConvert.cpp" />
+    <ClCompile Include="Overlay.cpp" />
+    <ClCompile Include="Aimbot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib">

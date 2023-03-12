@@ -298,8 +298,6 @@ inline bool callbackExample(ULONG64* param1, ULONG64* param2, ULONG64 allocation
 inline void LoadDriver()
 {
 	system(skCrypt("TASKKILL /F /IM VALORANT-Win64-Shipping.exe >NUL 2>&1"));
-	system(skCrypt("TASKKILL /F /IM VALORANT-Win64-Shipping.exe >NUL 2>&1"));
-	Sleep(2000);
 	iqvw64e_device_handle = intel_driver::Load();
 
 	NTSTATUS exitCode = 0;

@@ -75,6 +75,7 @@
     </ClInclude>
     <ClInclude Include="ui.h" />
     <ClInclude Include="vars.h" />
+    <ClInclude Include="ESP.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">
@@ -111,6 +112,7 @@
     <ClCompile Include="memory.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="Vars.cpp" />
+    <ClCompile Include="ESP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib">

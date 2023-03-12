@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ESP.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
     <ClCompile Include="thirdparty\imgui\imgui.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="Vars.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ESP.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="offsets.h" />

@@ -6,15 +6,18 @@
 #include "thirdparty/imgui/imgui_impl_win32.h";
 #include "vars.h";
 #include "ui.h";
+#include "ESP.h"
 
 void UI::render() {
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	/*if (settings::esp_enabled)
-		make_hack();
-		*/
+	if (settings::esp_enabled)
+		ESP::render();
+	
+	
+		
 
 	UI::drawMenu();
 	if (settings::aimbot)

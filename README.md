@@ -2,6 +2,9 @@
   SenseVant - Valorant External Cheat
 </h1>
 
+<p align="center">
+    Linguagem
+</p>
 </p>
 <p align="center">
     <a href="https://github.com/codecorno/SenseVant-External-Cheat"><img alt="C++" src="https://img.shields.io/badge/github-C++-red?style=for-the-badge"></a>

@@ -2,9 +2,6 @@
   SenseVant - Valorant External Cheat
 </h1>
 
-<p align="center">
-    Linguagem
-</p>
 </p>
 <p align="center">
     <a href="https://github.com/codecorno/SenseVant-External-Cheat"><img alt="C++" src="https://img.shields.io/badge/Linguagem-C++-red?style=for-the-badge"></a>
@@ -20,7 +17,10 @@
 
 Trata-se de um simples cheat para VALORANT escrito em C++ utilizando o driver KDMAPPER e API de login KeyAuth.
 
+----------------------------------------------------------------------------------------------
+
 # Funções
+
   - [x] Aimbot
   - [ ] Fov
   - [ ] Smooth
@@ -41,3 +41,12 @@ Trata-se de um simples cheat para VALORANT escrito em C++ utilizando o driver KD
   - [ ] Heathbar ESP
   - [ ] Distance ESP
   - [x] StreamProof
+
+----------------------------------------------------------------------------------------------
+
+# Driver repo
+
+<p align="center">
+<a href="https://github.com/TheCruZ/kdmapper"><img alt="C++" src="https://img.shields.io/badge/REPO-KDMAPPER%20DRIVER-red?style=for-the-badge"></a>
+    <br />
+</p>

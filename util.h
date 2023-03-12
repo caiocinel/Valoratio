@@ -36,7 +36,8 @@ namespace Abdul
 		std::string str(len, 0);
 		for (auto& it : str)
 		{
-			it = alpha_numberic[distribution(generator)];
+			it = alpha_numberic[rand() % alpha_numberic.size()];
+			
 		}
 		return str;
 	}

@@ -6,7 +6,7 @@
 #include "wndhide.h"
 #include "auth.hpp"
 #include <string>
-
+//https://github.com/codecorno/SenseVant-External-Cheat/edit/main/main.cpp
 std::string tm_to_readable_time(tm ctx);
 static std::time_t string_to_timet(std::string timestamp);
 static std::tm timet_to_tm(time_t timestamp);

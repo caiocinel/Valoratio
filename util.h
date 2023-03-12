@@ -41,9 +41,8 @@ namespace Abdul
 		}
 		return str;
 	}
-
-	/* cor de gay */
-	void SetPenisRep(unsigned short color)
+	
+	void SetOutputColor(unsigned short color)
 	{
 		HANDLE con = 0;
 		con = GetStdHandle(STD_OUTPUT_HANDLE);

@@ -11,21 +11,11 @@ std::string tm_to_readable_time(tm ctx);
 static std::time_t string_to_timet(std::string timestamp);
 static std::tm timet_to_tm(time_t timestamp);
 
-using namespace KeyAuth;
-
-std::string name = "Valorant Hextch"; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
-std::string ownerid = "5IBCHtMK3n"; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
-std::string secret = "5ca36b67cdfe9c2ab0b2bf750dcdbfa47623f206d5aa380006fefcb5bbc9d7db"; // app secret, the blurred text on licenses tab and other tabs
-std::string version = "1.0"; // leave alone unless you've changed version on website
-std::string url = "https://keyauth.win/api/1.2/"; // change if you're self-hosting
-
 /*
 	Video on what ownerid and secret are https://youtu.be/uJ0Umy_C6Fg
 	Video on how to add KeyAuth to your own application https://youtu.be/GB4XW_TsHqA
 	Video to use Web Loader (control loader from customer panel) https://youtu.be/9-qgmsUUCK4
 */
-
-api KeyAuthApp(name, ownerid, secret, version, url);
 
 void make_hack()
 {
@@ -337,11 +327,11 @@ inline void LoadDriver()
 
 int cheat()
 {
-	Abdul::SetPenisRep(WHITE);
+	Abdul::SetOutputColor(WHITE);
 	printf("[");
-	Abdul::SetPenisRep(GREEN);
+	Abdul::SetOutputColor(GREEN);
 	printf("SUCCESS");
-	Abdul::SetPenisRep(WHITE);
+	Abdul::SetOutputColor(WHITE);
 	printf("] - Key is valid, please wait");
 	Sleep(2000);
 
@@ -462,10 +452,7 @@ void check1()
 
 int main()
 {
-
-	KeyAuthApp.init();
-
-start:                 CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)check1, nullptr, NULL, nullptr);
+	start: CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)check1, nullptr, NULL, nullptr);
 
 	int option;
 	std::string username;
@@ -473,23 +460,13 @@ start:                 CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)check
 	std::string key;
 
 
-	Abdul::SetPenisRep(WHITE);
+	Abdul::SetOutputColor(WHITE);
 	printf("[");
-	Abdul::SetPenisRep(YELLOW);
+	Abdul::SetOutputColor(YELLOW);
 	printf("KEY");
-	Abdul::SetPenisRep(WHITE);
+	Abdul::SetOutputColor(WHITE);
 	printf("] - License key: ");
 	std::cin >> key;
-	KeyAuthApp.license(key);
-
-
-	if (!KeyAuthApp.data.success)
-	{
-		std::cout << skCrypt("\n Status: ") << KeyAuthApp.data.message;
-		Sleep(1500);
-		exit(0);
-	}
-
 	cheat();
 }
 

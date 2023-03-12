@@ -317,16 +317,6 @@ inline void LoadDriver()
 
 int cheat()
 {
-	Abdul::SetOutputColor(WHITE);
-	printf("[");
-	Abdul::SetOutputColor(GREEN);
-	printf("SUCCESS");
-	Abdul::SetOutputColor(WHITE);
-	printf("] - Key is valid, please wait");
-	Sleep(2000);
-
-
-
 	if (!driver.init())
 	{
 		printf(skCrypt("[>] dr1ver not found...\n[>] dr1ver loading...\n"));

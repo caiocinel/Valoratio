@@ -126,6 +126,5 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="libcurl.lib" />
-    <Library Include="library_x64.lib" />
   </ItemGroup>
 </Project>

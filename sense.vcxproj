@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="libcurl.lib" />
-    <Library Include="library_x64.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

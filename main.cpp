@@ -6,16 +6,11 @@
 #include "wndhide.h"
 #include "auth.hpp"
 #include <string>
-//https://github.com/codecorno/SenseVant-External-Cheat
-std::string tm_to_readable_time(tm ctx);
-static std::time_t string_to_timet(std::string timestamp);
-static std::tm timet_to_tm(time_t timestamp);
+#include "KdMapper/kdmapper.hpp"
 
-/*
-	Video on what ownerid and secret are https://youtu.be/uJ0Umy_C6Fg
-	Video on how to add KeyAuth to your own application https://youtu.be/GB4XW_TsHqA
-	Video to use Web Loader (control loader from customer panel) https://youtu.be/9-qgmsUUCK4
-*/
+
+inline HANDLE iqvw64e_device_handle;
+int hitbux;
 
 void make_hack()
 {
@@ -181,7 +176,6 @@ void render()
 		ImGui_ImplDX9_CreateDeviceObjects();
 	}
 }
-int hitbux;
 
 void aimbot()
 {
@@ -279,8 +273,6 @@ void cache()
 		std::this_thread::sleep_for(std::chrono::milliseconds(2500));
 	}
 }
-#include "KdMapper/kdmapper.hpp"
-inline HANDLE iqvw64e_device_handle;
 
 inline LONG WINAPI SimplestCrashHandler(EXCEPTION_POINTERS* ExceptionInfo)
 {
@@ -453,20 +445,6 @@ void check1()
 int main()
 {
 	start: CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)check1, nullptr, NULL, nullptr);
-
-	int option;
-	std::string username;
-	std::string password;
-	std::string key;
-
-
-	Abdul::SetOutputColor(WHITE);
-	printf("[");
-	Abdul::SetOutputColor(YELLOW);
-	printf("KEY");
-	Abdul::SetOutputColor(WHITE);
-	printf("] - License key: ");
-	std::cin >> key;
 	cheat();
 }
 

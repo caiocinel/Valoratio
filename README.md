@@ -1,5 +1,5 @@
 <h1 align="center">
-  Valoratio - Valorant External Cheat
+  Valoratio - Valorant Training Software
 </h1>
 
 </p>
@@ -9,17 +9,15 @@
 </p>
 
 <p align="center">
-    Desenvolvido por
+    Development by
 </p>
 <p align="center">
     <a href="https://github.com/MarshallSCPT"><img alt="MarshallSCPT" src="https://img.shields.io/badge/github-marshallscpt-blue?style=for-the-badge"></a>
 </p>
 
-Trata-se de um simples cheat para VALORANT escrito em C++ utilizando o driver KDMAPPER e API de login KeyAuth.
+<hr/>
 
-----------------------------------------------------------------------------------------------
-
-# Funções
+# Functions
 
   - [x] Aimbot
   - [ ] Fov
@@ -41,12 +39,3 @@ Trata-se de um simples cheat para VALORANT escrito em C++ utilizando o driver KD
   - [ ] Healthbar ESP
   - [ ] Distance ESP
   - [x] StreamProof
-
-----------------------------------------------------------------------------------------------
-
-# Driver repo
-
-<p align="center">
-<a href="https://github.com/TheCruZ/kdmapper"><img alt="C++" src="https://img.shields.io/badge/REPO-KDMAPPER%20DRIVER-red?style=for-the-badge"></a>
-    <br />
-</p>

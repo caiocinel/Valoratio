@@ -73,9 +73,11 @@
     <ClInclude Include="thirdparty\driver.h">
       <Filter>thirdparty</Filter>
     </ClInclude>
-    <ClInclude Include="ui.h" />
-    <ClInclude Include="vars.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Vars.h" />
     <ClInclude Include="ESP.h" />
+    <ClInclude Include="CustomImGui.h" />
+    <ClInclude Include="StrConvert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">
@@ -110,9 +112,11 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
-    <ClCompile Include="ui.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vars.cpp" />
     <ClCompile Include="ESP.cpp" />
+    <ClCompile Include="CustomImGui.cpp" />
+    <ClCompile Include="StrConvert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib">

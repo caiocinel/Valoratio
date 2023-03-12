@@ -1,16 +1,16 @@
+#include <Windows.h>
+#include <string>
+#include "thirdparty/wndhide.h"
+#include "thirdparty/KdMapper/kdmapper.hpp"
 #include "sdk.h"
 #include "overlay.h"
-#include <Windows.h>
-#include "thirdparty/wndhide.h"
-#include <string>
-#include "thirdparty/KdMapper/kdmapper.hpp"
-#include "ui.h"
+#include "UI.h"
 
 
 inline HANDLE iqvw64e_device_handle;
 int hitbux;
 
-void aimbot()
+/*void aimbot()
 {
 	try
 	{
@@ -106,7 +106,7 @@ void cache()
 		std::this_thread::sleep_for(std::chrono::milliseconds(2500));
 	}
 }
-
+*/
 inline LONG WINAPI SimplestCrashHandler(EXCEPTION_POINTERS* ExceptionInfo)
 {
 	if (ExceptionInfo && ExceptionInfo->ExceptionRecord)
@@ -173,7 +173,7 @@ int cheat()
 	driver.VirtualAddress = driver.get_guarded_base();
 	if (!Vars::gBase) { printf(skCrypt("[>] Couldn't get base address!\n")); return 0; }
 	printf(skCrypt("[>] Guarded Base: %p\n"), Vars::gBase);
-	CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)cache, nullptr, NULL, nullptr);
+	//CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)cache, nullptr, NULL, nullptr);
 	static RECT old_rc;
 	ZeroMemory(&Vars::message, sizeof(MSG));
 	while (Vars::message.message != WM_QUIT)
@@ -202,7 +202,7 @@ int cheat()
 		rc.left = xy.x;
 		rc.top = xy.y;
 		
-		UI::style();
+		//UI::style();
 		ImGuiIO& io = ImGui::GetIO();
 		io.ImeWindowHandle = Vars::gameWnd;
 		io.DeltaTime = 1.0f / 60.0f;
@@ -233,14 +233,23 @@ int cheat()
 			Vars::pDevice->Reset(&Vars::pParams);
 		}
 		UI::render();
-		std::thread(aimbot).detach();
+		//std::thread(aimbot).detach();
 		Sleep(10);
 	}
 
 	ImGui_ImplDX9_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
-	cleanup_d3d();
+
+	if (Vars::pDevice != NULL) {
+		Vars::pDevice->EndScene();
+		Vars::pDevice->Release();
+	}
+	
+	if (Vars::pObject != NULL) 
+		Vars::pObject->Release();
+	
+	
 	DestroyWindow(Vars::myWnd);
 	return Vars::message.wParam;
 }

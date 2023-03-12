@@ -1,12 +1,4 @@
-#include <d3dx9.h>
-#include <d3d9types.h>
-#include "settings.h";
-#include "thirdparty/imgui/imgui.h";
-#include "thirdparty/imgui/imgui_impl_dx9.h";
-#include "thirdparty/imgui/imgui_impl_win32.h";
-#include "vars.h";
-#include "ui.h";
-#include "ESP.h"
+#include "UI.h";
 
 void UI::render() {
 	ImGui_ImplDX9_NewFrame();
@@ -192,71 +184,4 @@ void UI::style() {
 	style.PopupRounding = 4;
 	style.ScrollbarRounding = 9;
 	style.GrabRounding = 3;
-}
-
-void CustomImGui::Checkbox(const char* __label__, bool* __value__)
-{
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 6, ImGui::GetCursorPosY() + 6));
-	ImGui::Checkbox(__label__, __value__);
-	ImGui::Spacing();
-};
-
-void CustomImGui::Slider(const char* __label__, float __min__, float __max__, float* __value__, float __width__)
-{
-	ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 6, ImGui::GetCursorPosY() + 6));
-	ImGui::PushID("##CustomSlider_");
-	ImGui::PushItemWidth(__width__);
-	ImGui::SliderFloat(__label__, __value__, __min__, __max__, __label__);
-	ImGui::PopItemWidth();
-	ImGui::PopID();
-	ImGui::Spacing();
-};
-
-void CustomImGui::Picker(const char* label, float* value)
-{
-	ImGui::ColorEdit4(label, value, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoTooltip);
-	ImGui::Spacing();
-};
-
-void CustomImGui::HotkeyButton(int aimkey, void* changekey, int status)
-{
-	const char* preview_value = NULL;
-	if (aimkey >= 0 && aimkey < IM_ARRAYSIZE(Const::keyNames)) {
-		const char* const* items = (const char* const*)Const::keyNames;
-		if (preview_value)
-			preview_value = items[aimkey];
-	}
-
-	std::string aimkeys;
-	if (preview_value == NULL)
-		aimkeys = ("Select Key");
-	else
-		aimkeys = preview_value;
-
-	if (status == 1)
-	{
-		aimkeys = ("Press key to bind");
-	}
-	if (ImGui::Button(aimkeys.c_str(), ImVec2(125, 20)))
-	{
-		if (status == 0)
-		{
-			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)changekey, nullptr, 0, nullptr);
-		}
-	}
-}
-
-void CustomImGui::ChangeKey(void* blank)
-{
-	while (true)
-	{
-		for (int i = 0; i < 0x87; i++)
-		{
-			if (GetKeyState(i) & 0x8000)
-			{
-				settings::aimkey = i;
-				return;
-			}
-		}
-	}
 }

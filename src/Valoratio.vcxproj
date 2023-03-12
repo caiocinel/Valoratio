@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CustomImGui.cpp" />
     <ClCompile Include="ESP.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
@@ -24,10 +25,12 @@
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp" />
     <ClCompile Include="thirdparty\kdmapper\service.cpp" />
     <ClCompile Include="thirdparty\kdmapper\utils.cpp" />
-    <ClCompile Include="ui.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="StrConvert.cpp" />
     <ClCompile Include="Vars.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CustomImGui.h" />
     <ClInclude Include="ESP.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="const.h" />
@@ -54,8 +57,9 @@
     <ClInclude Include="thirdparty\kdmapper\utils.hpp" />
     <ClInclude Include="thirdparty\skCrypt.h" />
     <ClInclude Include="thirdparty\wndhide.h" />
-    <ClInclude Include="ui.h" />
-    <ClInclude Include="vars.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="StrConvert.h" />
+    <ClInclude Include="Vars.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="thirdparty\libcurl.lib" />

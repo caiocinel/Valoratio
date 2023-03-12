@@ -7,8 +7,8 @@
 #include "thirdparty/imgui/imgui_impl_win32.h"
 #include "thirdparty/imgui/imgui_impl_dx9.h"
 #include "sdk.h"
-#include "vars.h"
-#include "ui.h";
+#include "Vars.h"
+#include "UI.h";
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "Dwmapi.lib")
@@ -39,11 +39,11 @@ auto init_wndparams(HWND hWnd) -> HRESULT
 		exit(4);
 	}
 	ImGui::CreateContext();
-	//ImGui::GetIO().Fonts->AddFontDefault();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.IniFilename = NULL;
 	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\arialbd.ttf", 13);
 	ImGui::StyleColorsLight();
+	UI::style();
 
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX9_Init(Vars::pDevice);
@@ -71,17 +71,6 @@ auto get_process_wnd(uint32_t pid) -> HWND
 		return params.first;
 
 	return NULL;
-}
-
-auto cleanup_d3d() -> void
-{
-	if (Vars::pDevice != NULL) {
-		Vars::pDevice->EndScene();
-		Vars::pDevice->Release();
-	}
-	if (Vars::pObject != NULL) {
-		Vars::pObject->Release();
-	}
 }
 
 auto set_window_target() -> void
@@ -138,223 +127,4 @@ auto setup_window() -> void
 
 	ShowWindow(Vars::myWnd, SW_SHOW);
 	UpdateWindow(Vars::myWnd);
-}
-
-void DrawFilledRect(int x, int y, int w, int h, RGBA* color)
-{
-	ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color->R / 255.0, color->G / 153.0, color->B / 51.0, color->A / 255.0)), 0, 0);
-}
-
-void DrawFilledRect2(int x, int y, int w, int h, ImColor color)
-{
-	ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), color, 0, 0);
-}
-
-void DrawNormalBox(int x, int y, int w, int h, int borderPx, ImColor color)
-{
-	DrawFilledRect2(x + borderPx, y, w, borderPx, color);
-	DrawFilledRect2(x + w - w + borderPx, y, w, borderPx, color);
-	DrawFilledRect2(x, y, borderPx, h, color);
-	DrawFilledRect2(x, y + h - h + borderPx * 2, borderPx, h, color);
-	DrawFilledRect2(x + borderPx, y + h + borderPx, w, borderPx, color);
-	DrawFilledRect2(x + w - w + borderPx, y + h + borderPx, w, borderPx, color);
-	DrawFilledRect2(x + w + borderPx, y, borderPx, h, color);
-	DrawFilledRect2(x + w + borderPx, y + h - h + borderPx * 2, borderPx, h, color);
-}
-
-void DrawCorneredBox(int X, int Y, int W, int H, const ImU32& color, int thickness)
-{
-	float lineW = (W / 3);
-	float lineH = (H / 3);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X, Y), ImVec2(X, Y + lineH), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X, Y), ImVec2(X + lineW, Y), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X + W - lineW, Y), ImVec2(X + W, Y), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X + W, Y), ImVec2(X + W, Y + lineH), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X, Y + H - lineH), ImVec2(X, Y + H), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X, Y + H), ImVec2(X + lineW, Y + H), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X + W - lineW, Y + H), ImVec2(X + W, Y + H), ImGui::GetColorU32(color), thickness);
-	ImGui::GetOverlayDrawList()->AddLine(ImVec2(X + W, Y + H - lineH), ImVec2(X + W, Y + H), ImGui::GetColorU32(color), thickness);
-}
-auto DrawLine(const ImVec2& x, const ImVec2 y, ImU32 color, const FLOAT width) -> void
-{
-	ImGui::GetOverlayDrawList()->AddLine(x, y, color, width);
-}
-
-auto Draw2DBox(float x, float y, float w, float h, ImColor color)-> void
-{
-	DrawLine(ImVec2(x, y), ImVec2(x + w, y), color, 1.3f); // top 
-	DrawLine(ImVec2(x, y - 1.3f), ImVec2(x, y + h + 1.4f), color, 1.3f); // left
-	DrawLine(ImVec2(x + w, y - 1.3f), ImVec2(x + w, y + h + 1.4f), color, 1.3f);  // right
-	DrawLine(ImVec2(x, y + h), ImVec2(x + w, y + h), color, 1.3f);   // bottom 
-}
-
-auto RectFilled(float x, float y, float x1, float y1, ImColor color, float rounding, int rounding_corners_flags)-> void
-{
-	ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x1, y1), color, rounding, rounding_corners_flags);
-}
-
-auto DrawHealthBar(float x, float y, float w, float h, int phealth, bool Outlined)-> void
-{
-	auto vList = ImGui::GetOverlayDrawList();
-
-	int healthValue = max(0, min(phealth, 100));
-
-	ImColor barColor = ImColor
-	(
-		min(510 * (100 - healthValue) / 100, 255), min(510 * healthValue / 100, 255),
-		25,
-		255
-	);
-	if (Outlined)
-		vList->AddRect(ImVec2(x - 1, y - 1), ImVec2(x + w + 1, y + h + 1), ImColor(0.f, 0.f, 0.f), 0.0f, 0, 1.0f);
-
-	RectFilled(x, y, x + w, y + (int)(((float)h / 100.0f) * (float)phealth), barColor, 0.0f, 0);
-}
-
-void DrawCircleFilled(int x, int y, int radius, RGBA* color, float segments)
-{
-	ImGui::GetOverlayDrawList()->AddCircleFilled(ImVec2(x, y), radius, ImGui::ColorConvertFloat4ToU32(ImVec4(color->R / 255.0, color->G / 153.0, color->B / 51.0, color->A / 255.0)), segments);
-}
-
-void DrawCircle(int x, int y, int radius, RGBA* color, float segments)
-{
-	ImGui::GetOverlayDrawList()->AddCircle(ImVec2(x, y), radius, ImGui::ColorConvertFloat4ToU32(ImVec4(color->R / 255.0, color->G / 153.0, color->B / 51.0, color->A / 255.0)), segments);
-}
-
-std::string string_To_UTF8(const std::string& str)
-{
-	int nwLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
-
-	wchar_t* pwBuf = new wchar_t[nwLen + 1];
-	ZeroMemory(pwBuf, nwLen * 2 + 2);
-
-	::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), pwBuf, nwLen);
-
-	int nLen = ::WideCharToMultiByte(CP_UTF8, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
-
-	char* pBuf = new char[nLen + 1];
-	ZeroMemory(pBuf, nLen + 1);
-
-	::WideCharToMultiByte(CP_UTF8, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
-
-	std::string retStr(pBuf);
-
-	delete[]pwBuf;
-	delete[]pBuf;
-
-	pwBuf = NULL;
-	pBuf = NULL;
-
-	return retStr;
-}
-
-std::wstring MBytesToWString(const char* lpcszString)
-{
-	int len = strlen(lpcszString);
-	int unicodeLen = ::MultiByteToWideChar(CP_ACP, 0, lpcszString, -1, NULL, 0);
-	wchar_t* pUnicode = new wchar_t[unicodeLen + 1];
-	memset(pUnicode, 0, (unicodeLen + 1) * sizeof(wchar_t));
-	::MultiByteToWideChar(CP_ACP, 0, lpcszString, -1, (LPWSTR)pUnicode, unicodeLen);
-	std::wstring wString = (wchar_t*)pUnicode;
-	delete[] pUnicode;
-	return wString;
-}
-
-std::string WStringToUTF8(const wchar_t* lpwcszWString)
-{
-	char* pElementText;
-	int iTextLen = ::WideCharToMultiByte(CP_UTF8, 0, (LPWSTR)lpwcszWString, -1, NULL, 0, NULL, NULL);
-	pElementText = new char[iTextLen + 1];
-	memset((void*)pElementText, 0, (iTextLen + 1) * sizeof(char));
-	::WideCharToMultiByte(CP_UTF8, 0, (LPWSTR)lpwcszWString, -1, pElementText, iTextLen, NULL, NULL);
-	std::string strReturn(pElementText);
-	delete[] pElementText;
-	return strReturn;
-}
-
-char* wchar_to_char(const wchar_t* pwchar)
-{
-	int currentCharIndex = 0;
-	char currentChar = pwchar[currentCharIndex];
-
-	while (currentChar != '\0')
-	{
-		currentCharIndex++;
-		currentChar = pwchar[currentCharIndex];
-	}
-
-	const int charCount = currentCharIndex + 1;
-
-	char* filePathC = (char*)malloc(sizeof(char) * charCount);
-
-	for (int i = 0; i < charCount; i++)
-	{
-		char character = pwchar[i];
-
-		*filePathC = character;
-
-		filePathC += sizeof(char);
-
-	}
-	filePathC += '\0';
-
-	filePathC -= (sizeof(char) * charCount);
-
-	return filePathC;
-}
-
-void DrawLString(float fontSize, int x, int y, ImU32 color, bool bCenter, bool stroke, const char* pText, ...)
-{
-	va_list va_alist;
-	char buf[1024] = { 0 };
-	va_start(va_alist, pText);
-	_vsnprintf_s(buf, sizeof(buf), pText, va_alist);
-	va_end(va_alist);
-	std::string text = WStringToUTF8(MBytesToWString(buf).c_str());
-	if (bCenter)
-	{
-		ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
-		x = x - textSize.x / 2;
-		y = y - textSize.y;
-	}
-	if (stroke)
-	{
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x + 1, y + 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x - 1, y - 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x + 1, y - 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x - 1, y + 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-	}
-	ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x, y), color, text.c_str());
-}
-
-void DrawString(float fontSize, int x, int y, RGBA* color, bool bCenter, bool stroke, const char* pText, ...)
-{
-	va_list va_alist;
-	char buf[1024] = { 0 };
-	va_start(va_alist, pText);
-	_vsnprintf_s(buf, sizeof(buf), pText, va_alist);
-	va_end(va_alist);
-	std::string text = WStringToUTF8(MBytesToWString(buf).c_str());
-	if (bCenter)
-	{
-		ImVec2 textSize = ImGui::CalcTextSize(text.c_str());
-		x = x - textSize.x / 4;
-		y = y - textSize.y;
-	}
-	if (stroke)
-	{
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x + 1, y + 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x - 1, y - 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x + 1, y - 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-		ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x - 1, y + 1), ImGui::ColorConvertFloat4ToU32(ImVec4(0, 0, 0, 1)), text.c_str());
-	}
-	ImGui::GetOverlayDrawList()->AddText(ImGui::GetFont(), fontSize, ImVec2(x, y), ImGui::ColorConvertFloat4ToU32(ImVec4(color->R / 255.0, color->G / 153.0, color->B / 51.0, color->A / 255.0)), text.c_str());
-}
-void DrawLeftProgressBar(int x, int y, int w, int h, int thick, int m_health)
-{
-	int G = (255 * m_health / 100);
-	int R = 255 - G;
-	RGBA healthcol = { R, G, 0, 255 };
-
-	DrawFilledRect(x - (w / 2) - 3, y, thick, (h)*m_health / 100, &healthcol);
 }

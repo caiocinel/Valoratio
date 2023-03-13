@@ -81,6 +81,7 @@
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Tests.h" />
+    <ClInclude Include="Classes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">

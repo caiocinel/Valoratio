@@ -14,6 +14,10 @@ void cache()
 		glocalpawn = driver.read2<uintptr_t>(glocalplayercontroller + LOCALPLAYERPAWN);
 		glocaldamagehandler = driver.read2<uintptr_t>(glocalpawn + DAMAGE_HANDLER);
 		uintptr_t LocalPlayerState = driver.read2<uintptr_t>(glocalpawn + PLAYER_STATE);
+		uintptr_t Inv = driver.read2<uintptr_t>(glocalpawn + INVENTORY);
+		uintptr_t CurrentWeapon = driver.read2<uintptr_t>(Inv + CURRENT_WEAPON);		
+		int WeaponId = driver.read2<int>(CurrentWeapon + 0x18);
+		printf("ID: %i\n", WeaponId);
 		uintptr_t LocalTeamComponent = driver.read2<uintptr_t>(LocalPlayerState + TEAM_COMP);
 		glocalteamid = driver.read2<int>(LocalTeamComponent + TEAM_ID);
 		gcameramanager = driver.read2<uintptr_t>(glocalplayercontroller + CAMERA_MANAGER);

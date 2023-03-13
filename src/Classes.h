@@ -394,3 +394,63 @@ namespace UAresInventory
 	constexpr auto SuppressedUnequipSpeed = 0x302; // EEquipSpeed
 	constexpr auto StorageClashBehavior = 0x303; // EStorageClashBehavior
 }
+
+// Inheritance: AActor > UObject
+namespace AAresItem
+{
+	constexpr auto MaximumAmount = 0x3d0; // int32_t
+	constexpr auto AuthItemOnSetOwner = 0x3d8; // FMulticastInlineDelegate
+	constexpr auto ItemOnSetOwner = 0x3e8; // FMulticastInlineDelegate
+	constexpr auto Persistence = 0x3f8; // URoundPersistenceComponent*
+	constexpr auto ReplicationSleepComponent = 0x400; // UReplicationSleepComponent*
+	constexpr auto EquippableSlot = 0x408; // EAresItemSlot
+	constexpr auto bShouldShowInStore = 0x409; // bool
+	constexpr auto MyPawn = 0x410; // AShooterCharacter*
+	constexpr auto InInventory = 0x418; // EEquippableInInventory
+	constexpr auto AuthOriginalOwnerId = 0x420; // FString
+	constexpr auto CachedDataAsset = 0x430; // TWeakObjectPtr<UAresBasePrimaryDataAsset>
+	constexpr auto CachedUIData = 0x438; // TWeakObjectPtr<UBaseContentUIData>
+}
+
+// Inheritance: UActorComponent > UObject
+namespace UAresInventory
+{
+	constexpr auto DropOffset = 0xf0; // FVector
+	constexpr auto AuthOnInventoryTransaction = 0x100; // FMulticastInlineDelegate
+	constexpr auto OnEquippableEquipped = 0x110; // FMulticastInlineDelegate
+	constexpr auto OnEquippableUnequipped = 0x120; // FMulticastInlineDelegate
+	constexpr auto OnEquippableChanged = 0x130; // FMulticastInlineDelegate
+	constexpr auto OnEquippableRestrictionError = 0x140; // FMulticastInlineDelegate
+	constexpr auto OnItemsChanged = 0x150; // FMulticastInlineDelegate
+	constexpr auto OnAuthTryPickup = 0x160; // FMulticastInlineDelegate
+	constexpr auto ItemSlots = 0x188; // UItemSlot*
+	constexpr auto ItemsTrashedThisRound = 0x208; // TArray<AAresItem*>
+	constexpr auto LastEquippables = 0x218; // TArray<AAresEquippable*>
+	constexpr auto LatestDesiredEquippableSlot = 0x228; // EAresItemSlot
+	constexpr auto DesiredEquippable = 0x230; // AAresEquippable*
+	constexpr auto PreviousDesiredEquippable = 0x238; // AAresEquippable*
+	constexpr auto CurrentEquippable = 0x240; // AAresEquippable*
+	constexpr auto bInitialEquippableChanged = 0x248; // bool
+	constexpr auto EquippableChange = 0x260; // FPendingEquippableChange
+	constexpr auto PendingEquippableChanges = 0x278; // TArray<FPendingEquippableChange>
+	constexpr auto DesiredEquippableStartTime = 0x288; // float
+	constexpr auto LastCycleEquippableTimestamp = 0x28c; // float
+	constexpr auto SlotModifiers = 0x290; // TArray<USlotModifierComponent*>
+	constexpr auto ShooterCharacterOwner = 0x2a0; // AShooterCharacter*
+	constexpr auto OwningClientCurrentCorrectionIndex = 0x2a8; // int32_t
+	constexpr auto AuthCorrectionState = 0x2ac; // EServerCorrectionState
+	constexpr auto DisagreementTimeStamp = 0x2b0; // float
+	constexpr auto LastPendingReplicationWarning = 0x2b4; // float
+	constexpr auto DisagreementGracePeriodDuration = 0x2b8; // float
+	constexpr auto bInitialServerCorrectionSent = 0x2bc; // bool
+	constexpr auto bInitialServerCorrectionProcessed = 0x2bd; // bool
+	constexpr auto bNeedsEquipWeaponAfterRespawn = 0x2c0; // float
+	constexpr auto bIsReplacingEquippableWithPickup = 0x2c4; // bool
+	constexpr auto AuthServerCorrectRepVariables = 0x2d0; // FInventoryServerCorrectRepVariables
+	constexpr auto EquipDebugRecordHistory = 0x2e0; // TArray<FEquipDebugRecord>
+	constexpr auto DroppedItems = 0x2f0; // TArray<AAresItem*>
+	constexpr auto CycleEquippableSlotOverride = 0x300; // EAresItemSlot
+	constexpr auto bIsSuppressible = 0x301; // bool
+	constexpr auto SuppressedUnequipSpeed = 0x302; // EEquipSpeed
+	constexpr auto StorageClashBehavior = 0x303; // EStorageClashBehavior
+}

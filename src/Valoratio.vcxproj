@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aimbot.h" />
+    <ClInclude Include="Classes.h" />
     <ClInclude Include="CustomImGui.h" />
     <ClInclude Include="ESP.h" />
     <ClInclude Include="main.h" />

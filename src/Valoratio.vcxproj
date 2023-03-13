@@ -43,6 +43,7 @@
     <ClInclude Include="sdk.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="Tests.h" />
     <ClInclude Include="thirdparty\defs.h" />
     <ClInclude Include="thirdparty\driver.h" />
     <ClInclude Include="thirdparty\imgui\imgui.h" />

@@ -3,16 +3,12 @@
 void ESP::render() {
 
 	std::vector<EnemyPtr> actor = enemy_array;
-	printf("Teste 1");
 	if (actor.empty()) {
-		printf("Teste 2");
 		return;
 	}
 	for (int i = 0; i < actor.size(); i++)
 	{
-		printf("Teste 3");
 		EnemyPtr enemy = actor[i];
-		printf("%i", enemy.bone_count);
 		Vector3 vBaseBone = SDK::GetBone(enemy.mesh_ptr, 0);
 		Vector3 vBaseBoneOut = SDK::ProjectWorldToScreen(vBaseBone);
 		Vector3 vBaseBoneOut2 = SDK::ProjectWorldToScreen(Vector3(vBaseBone.x, vBaseBone.y, vBaseBone.z - 15));

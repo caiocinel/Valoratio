@@ -1,4 +1,5 @@
 #include "main.h"
+#include "Tests.h"
 
 void cache()
 {
@@ -135,6 +136,7 @@ int main()
 			Vars::pDevice->Reset(&Vars::pParams);
 		}
 		UI::render();
+		Tests::run();
 		Sleep(10);
 	}
 

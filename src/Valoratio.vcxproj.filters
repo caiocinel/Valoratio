@@ -80,6 +80,7 @@
     <ClInclude Include="StrConvert.h" />
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Tests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thirdparty\kdmapper\portable_executable.cpp">

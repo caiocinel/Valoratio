@@ -442,7 +442,7 @@ LABEL_27:
 	}
 	return v20 ^ (unsigned int)key;
 }
-std::string GetWeaponName(int id)
+inline std::string GetWeaponName(int id)
 {
 	switch (id)
 	{

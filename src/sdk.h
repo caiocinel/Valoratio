@@ -20,7 +20,7 @@ glocalpawn,
 glocaldamagehandler,
 glocalplayercontroller;
 inline int glocalteamid;
-kernel::driver driver;
+inline kernel::driver driver;
 typedef struct {
 	uintptr_t actor_ptr;
 	uintptr_t damage_handler_ptr;
@@ -41,10 +41,13 @@ struct FMinimalViewInfo2 {
 	struct FVector Rotation; // 0x0c(0x0c)
 	float FOV; // 0x18(0x04)
 };
-std::vector<EnemyPtr> enemy_array{};
+inline std::vector<EnemyPtr> enemy_array{};
+
+
+
 namespace SDK
 {
-	std::wstring s2ws(const std::string& str)
+	inline std::wstring s2ws(const std::string& str)
 	{
 		int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
 		std::wstring wstrTo(size_needed, 0);
@@ -52,7 +55,7 @@ namespace SDK
 		return wstrTo;
 	}
 
-	static uintptr_t GetVALORANTPID()
+	inline static uintptr_t GetVALORANTPID()
 	{
 		BYTE target_name[] = { 'V','A','L','O','R','A','N','T','-','W','i','n','6','4','-','S','h','i','p','p','i','n','g','.','e','x','e', 0 };
 		std::wstring process_name = s2ws(std::string((char*)target_name));
@@ -69,7 +72,7 @@ namespace SDK
 		}
 		return 0;
 	}
-	std::vector<EnemyPtr> GetEnemyArray(uintptr_t actor_array, int actor_count) {
+	inline std::vector<EnemyPtr> GetEnemyArray(uintptr_t actor_array, int actor_count) {
 		std::vector<EnemyPtr> temp_enemy_collection{};
 		size_t size = sizeof(uintptr_t);
 		for (int i = 0; i < actor_count; i++) {
@@ -123,7 +126,7 @@ namespace SDK
 		}
 		return temp_enemy_collection;
 	}
-	Vector3 GetBone(DWORD_PTR mesh, int id)
+	inline Vector3 GetBone(DWORD_PTR mesh, int id)
 	{
 		DWORD_PTR array = driver.read<uintptr_t>(mesh + BONE_ARRAY);
 		if (array == NULL)
@@ -138,7 +141,7 @@ namespace SDK
 
 		return Vector3(Matrix._41, Matrix._42, Matrix._43);
 	}
-	FVector GetBone2(DWORD_PTR mesh, int id)
+	inline FVector GetBone2(DWORD_PTR mesh, int id)
 	{
 		DWORD_PTR array = driver.read<uintptr_t>(mesh + BONE_ARRAY);
 		if (array == NULL)
@@ -153,7 +156,7 @@ namespace SDK
 
 		return FVector(Matrix._41, Matrix._42, Matrix._43);
 	}
-	auto ProjectWorldToScreen(Vector3 WorldLocation) -> Vector3
+	inline auto ProjectWorldToScreen(Vector3 WorldLocation) -> Vector3
 	{
 		Vector3 Screenlocation = Vector3(0, 0, 0);
 		FMinimalViewInfo camera = driver.read<FMinimalViewInfo>(gcameramanager + 0x1FE0 + 0x10);
@@ -179,7 +182,7 @@ namespace SDK
 
 		return Screenlocation;
 	}
-	auto ProjectWorldToScreen2(FVector WorldLocation) -> FVector
+	inline auto ProjectWorldToScreen2(FVector WorldLocation) -> FVector
 	{
 		FVector Screenlocation = FVector(0, 0, 0);
 		FMinimalViewInfo2 camera = driver.read<FMinimalViewInfo2>(gcameramanager + 0x1FE0 + 0x10);
@@ -205,7 +208,7 @@ namespace SDK
 
 		return Screenlocation;
 	}
-	auto IsVisible(DWORD_PTR mesh) -> bool
+	inline auto IsVisible(DWORD_PTR mesh) -> bool
 	{
 		float fLastSubmitTime = driver.read<float>(mesh + LAST_SUMBIT_TIME);
 		float fLastRenderTimeOnScreen = driver.read<float>(mesh + LAST_RENDER_TIME);
@@ -213,7 +216,7 @@ namespace SDK
 		bool bVisible = fLastRenderTimeOnScreen + fVisionTick >= fLastSubmitTime;
 		return bVisible;
 	}
-	void renderBoneLine(Vector3 first_bone_position, Vector3 second_bone_position) {
+	inline void renderBoneLine(Vector3 first_bone_position, Vector3 second_bone_position) {
 		Vector3 first_bone_screen_position = ProjectWorldToScreen(first_bone_position);
 		ImVec2 fist_screen_position = ImVec2(first_bone_screen_position.x, first_bone_screen_position.y);
 		Vector3 second_bone_screen_position = ProjectWorldToScreen(second_bone_position);
@@ -221,7 +224,7 @@ namespace SDK
 		ImGui::GetOverlayDrawList()->AddLine(fist_screen_position, second_screen_position, ImGui::ColorConvertFloat4ToU32(ImVec4(settings::bone_color[0], settings::bone_color[1], settings::bone_color[2], settings::bone_color[3])));
 	}
 
-	void DrawBones(EnemyPtr enemy) {
+	inline void DrawBones(EnemyPtr enemy) {
 		Vector3 head_position = GetBone(enemy.mesh_ptr, 8);
 		Vector3 neck_position;
 		Vector3 chest_position = GetBone(enemy.mesh_ptr, 6);
@@ -317,18 +320,18 @@ namespace SDK
 		renderBoneLine(r_thigh_position, r_knee_position);
 		renderBoneLine(r_knee_position, r_foot_position);
 	}
-	float RadianToDegree(float radian)
+	inline float RadianToDegree(float radian)
 	{
 		return radian * (180 / M_PI);
 	}
 
-	float DegreeToRadian(float degree)
+	inline float DegreeToRadian(float degree)
 	{
 		return degree * (M_PI / 180);
 
 	}
 
-	FVector RadianToDegree(FVector radians)
+	inline FVector RadianToDegree(FVector radians)
 	{
 		FVector degrees;
 		degrees.x = radians.x * (180 / M_PI);
@@ -337,7 +340,7 @@ namespace SDK
 		return degrees;
 	}
 
-	FVector DegreeToRadian(FVector degrees)
+	inline FVector DegreeToRadian(FVector degrees)
 	{
 		FVector radians;
 		radians.x = degrees.x * (M_PI / 180);
@@ -346,7 +349,7 @@ namespace SDK
 		return radians;
 	}
 
-	void ClampAngle(FVector& angle) {
+	inline void ClampAngle(FVector& angle) {
 		if (angle.x > 89.0f) angle.x = 89.f;
 		if (angle.x < -89.0f) angle.x = -89.f;
 
@@ -356,14 +359,14 @@ namespace SDK
 		angle.z = 0.0f;
 	}
 
-	void Normalise(FVector& angle) {
+	inline void Normalise(FVector& angle) {
 		if (angle.x > 89.0f) angle.x -= 180.0f;
 		if (angle.x < -89.0f) angle.x += 180.0f;
 
 		while (angle.y > 180) angle.y -= 360.f;
 		while (angle.y < -180) angle.y += 360.f;
 	}
-	FVector fhgfsdhkfshdghfsd205(FVector src, FVector dst)
+	inline FVector fhgfsdhkfshdghfsd205(FVector src, FVector dst)
 	{
 		FVector angle;
 		angle.x = -atan2f(dst.x - src.x, dst.y - src.y) / M_PI * 180.0f + 180.0f;
@@ -372,7 +375,7 @@ namespace SDK
 
 		return angle;
 	}
-	FVector CaadadalcAngle(FVector src, FVector dst)
+	inline FVector CaadadalcAngle(FVector src, FVector dst)
 	{
 		FVector angle;
 		FVector delta = FVector((src.x - dst.x), (src.y - dst.y), (src.z - dst.z));
@@ -386,7 +389,7 @@ namespace SDK
 
 		return angle;
 	}
-	void NormalizeAngles(FVector& angle)
+	inline void NormalizeAngles(FVector& angle)
 	{
 		while (angle.x > 89.0f)
 			angle.x -= 180.f;
@@ -400,13 +403,13 @@ namespace SDK
 		while (angle.y < -180.f)
 			angle.y += 360.f;
 	}
-	float GetFov(const FVector viewAngle, const FVector aimAngle)
+	inline float GetFov(const FVector viewAngle, const FVector aimAngle)
 	{
 		FVector Delta = FVector(aimAngle.x - viewAngle.x, aimAngle.y - viewAngle.y, aimAngle.z - viewAngle.z);
 		NormalizeAngles(Delta);
 		return sqrt(pow(Delta.x, 2.0f) + pow(Delta.y, 2.0f));
 	}
-	void normalize(FVector& in)
+	inline void normalize(FVector& in)
 	{
 		if (in.x > 89.f) in.x -= 360.f;
 		else if (in.x < -89.f) in.x += 360.f;
@@ -417,7 +420,7 @@ namespace SDK
 		in.z = 0;
 	}
 
-	FVector SmoothAim(FVector Camera_rotation, FVector Target, float SmoothFactor)
+	inline FVector SmoothAim(FVector Camera_rotation, FVector Target, float SmoothFactor)
 	{
 		FVector diff = Target - Camera_rotation;
 		normalize(diff);
@@ -434,7 +437,7 @@ namespace SDK
 		if (Ang.y > 360.f) Ang.y -= 360.f;
 		Ang.z = 0.f;
 	}
-	FVector aimbot(float x, float y)
+	inline FVector aimbot(float x, float y)
 	{
 		float ScreenCenterX = g_width / 2;
 		float ScreenCenterY = g_height / 2;
@@ -474,7 +477,7 @@ namespace SDK
 
 		return FVector(TargetX, TargetY, 0);
 	}
-	void RCS(FVector Target, FVector Camera_rotation, float SmoothFactor) {
+	inline void RCS(FVector Target, FVector Camera_rotation, float SmoothFactor) {
 
 		// Camera 2 Control space
 		FVector ConvertRotation = Camera_rotation;
@@ -500,7 +503,7 @@ namespace SDK
 		driver.write<FVector2D>(glocalplayercontroller + CONTROL_ROT, FVector2D(Smoothed.x, Smoothed.y));
 		return;
 	}
-	int ActorLoop(float* flFoV)
+	inline int ActorLoop(float* flFoV)
 	{
 
 		FMinimalViewInfo2 camera = driver.read<FMinimalViewInfo2>(gcameramanager + 0x1FE0 + 0x10);

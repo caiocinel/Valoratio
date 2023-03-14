@@ -65,7 +65,7 @@ int main()
 		Vars::gPid = SDK::GetVALORANTPID();
 		printf(skCrypt("[>] PID: %d\n"), Vars::gPid);
 		Entryhwnd = Overlay::getProcessWnd(Vars::gPid);
-		Sleep(50);
+		Sleep(10000);
 	}
 	driver.attach(Vars::gPid);
 	Overlay::setupWindow();

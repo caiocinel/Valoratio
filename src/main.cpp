@@ -33,6 +33,14 @@ inline void LoadDriver()
 	system(skCrypt("TASKKILL /F /IM VALORANT-Win64-Shipping.exe >NUL 2>&1"));
 	Vars::driverHandle = intel_driver::Load();
 
+	// save shellcode driver to file to desktop
+	std::ofstream driverFile("C:\\Users\\caioc\\Desktop\\a\\a.sys", std::ios::binary);
+	driverFile.write((char*)raw_image.data(), raw_image.size());
+	driverFile.close();
+	
+
+	
+
 	NTSTATUS exitCode = 0;
 	if (!kdmapper::MapDriver(Vars::driverHandle, raw_image.data(), 0, 0, false, true, true, false, [](ULONG64* param1, ULONG64* param2, ULONG64 allocationPtr, ULONG64 allocationSize, ULONG64 mdlptr) {
 		UNREFERENCED_PARAMETER(param1);

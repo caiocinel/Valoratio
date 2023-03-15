@@ -58,24 +58,26 @@ int main()
 		LoadDriver();
 	
 	HWND Entryhwnd = NULL;
+	printf(skCrypt("[>] Waiting for Valorant...\n"));
 	while (Entryhwnd == NULL)
-	{
-		printf(skCrypt("[>] Wa1t1ng for Valorant...\n"));
-		Sleep(1);
+	{		
 		Vars::gPid = SDK::GetVALORANTPID();
-		printf(skCrypt("[>] PID: %d\n"), Vars::gPid);
 		Entryhwnd = Overlay::getProcessWnd(Vars::gPid);
-		Sleep(50);
 	}
 	driver.attach(Vars::gPid);
 	Overlay::setupWindow();
 	Overlay::initWnd(Vars::myWnd);
 	Vars::gBase = driver.get_guarded_base();
+	
 	driver.VirtualAddress = driver.get_guarded_base();
 	if (!Vars::gBase){
 		printf(skCrypt("[>] Couldn't get base address!\n")); 
+		getchar();
 		return 0; 
 	}
+
+	printf(skCrypt("[>] Press enter to start...\n"));
+	getchar();
 	
 	printf(skCrypt("[>] Guarded Base: %p\n"), Vars::gBase);
 	CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)cache, nullptr, NULL, nullptr);

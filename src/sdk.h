@@ -57,7 +57,8 @@ namespace SDK
 
 	inline static uintptr_t GetVALORANTPID()
 	{
-		BYTE target_name[] = { 'V','A','L','O','R','A','N','T','-','W','i','n','6','4','-','S','h','i','p','p','i','n','g','.','e','x','e', 0 };
+		//BYTE target_name[] = { 'V','A','L','O','R','A','N','T','-','W','i','n','6','4','-','S','h','i','p','p','i','n','g','.','e','x','e', 0 };
+		const char* target_name = "explorer.exe";
 		std::wstring process_name = s2ws(std::string((char*)target_name));
 		HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 		PROCESSENTRY32W entry;

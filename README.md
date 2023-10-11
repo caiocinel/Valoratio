@@ -8,13 +8,6 @@
     <br />
 </p>
 
-<p align="center">
-    Development by
-</p>
-<p align="center">
-    <a href="https://github.com/MarshallSCPT"><img alt="MarshallSCPT" src="https://img.shields.io/badge/github-marshallscpt-blue?style=for-the-badge"></a>
-</p>
-
 <hr/>
 
 # Functions
